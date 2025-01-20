@@ -7,6 +7,8 @@ public class Welcome {
     static final int NUM_BOOK = 3;
     static final int NUM_ITEM = 7;
     static Scanner sc = new Scanner(System.in);
+    static CartItem[] mCartItem = new CartItem[NUM_BOOK];
+    static int mCartCount = 0;
     public static void main(String[] args) {
         String[][] mBook = new String[NUM_BOOK][NUM_ITEM];
 
@@ -75,6 +77,15 @@ public class Welcome {
     }
     public static void menuCartItemList() {
         System.out.println("2. 장바구니 상품 목록 보기");
+        System.out.println("-".repeat(50));
+        System.out.println("     도서ID \t|     수량\t|     합계");
+        for (int i=0; i<mCartCount; i++) {
+            System.out.print("     " + mCartItem[i].getBookID() + " \t| ");
+            System.out.print("     " + mCartItem[i].getQuantity() + " \t| ");
+            System.out.print("     " + mCartItem[i].getTotalPrice());
+            System.out.println();
+        }
+        System.out.println("-".repeat(50));
     }
     public static void menuCartClear() {
         System.out.println("3. 장바구니 비우기");
@@ -109,6 +120,9 @@ public class Welcome {
                 str = sc.nextLine();
                 if (str.toUpperCase().equals("Y")) {
                     System.out.println(book[numId][0] + " 도서가 장바구니에 추가되었습니다.");
+                    if (!isCartInBook(book[numId][0])) {
+                        mCartItem[mCartCount++] = new CartItem(book[numId]);
+                    }
                 }
                 quit = true;
             } else {
@@ -160,5 +174,15 @@ public class Welcome {
 //        book[2][4] = "컴퓨팅 사고력을 키우는 블록 코딩";
 //        book[2][5] = "컴퓨터입문";
 //        book[2][6] = "2019/06/10";
+        public static boolean isCartInBook(String bookId) {
+            boolean flag = false;
+            for (int i=0; i<mCartCount; i++) {
+                if (bookId == mCartItem[i].getBookID()) {
+                    mCartItem[i].setQuantity(mCartItem[i].getQuantity()+1);
+                    flag = true;
+                }
+            }
+            return flag;
+        }
     }
 }
