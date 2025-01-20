@@ -134,7 +134,7 @@ public class Welcome {
             System.out.printf("%d 번째 정보를 입력하세요 : %n", i+1);
             for (int j=0; j<NUM_ITEM; j++) {
                 System.out.print("해당 책의 정보를 7번으로 나누어 입력하세요.");
-                book[i][j] = sc.nextLine();
+                book[i][j] = sc.nextLine(); //
             }
         }
 //        book[0][0] = "ISBN1234";
